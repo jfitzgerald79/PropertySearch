@@ -1,1 +1,105 @@
 <!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+ 
+  <title>Search with Suggestion Template</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    
+    <script src="http://js.arcgis.com/3.14/"></script>
+  
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      
+    }
+
+    #search {
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 20px;
+      left: 74px;
+      
+    }
+   </style>
+   
+     
+  <script>     
+   require(["esri/map","esri/geometry/Extent", "esri/layers/ArcGISTiledMapServiceLayer", "esri/dijit/Search",  "esri/layers/FeatureLayer",  
+           "esri/InfoTemplate","esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color","dojo/domReady!"], 
+   function (Map, Extent, ArcGISTiledMapServiceLayer, Search,  FeatureLayer, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color) {
+      
+      var map = new Map("map", {
+        extent: new Extent({xmin: -9464867.586310409, ymin: 3988479.973394642, xmax: -9359211.763174301, ymax: 4048458.624373842,spatialReference: {wkid: 102100},
+        zoom: 20
+        })  
+                      
+      });
+       var basemap = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
+        map.addLayer(basemap);
+      
+       var desirability = new ArcGISTiledMapServiceLayer("http://tiles.arcgis.com/tiles/HYLRafMc4Ux6DA8c/arcgis/rest/services/arcGIS_Online_Suitability_Data/MapServer");
+        map.addLayer(desirability);
+        
+      
+      
+      var featureLayerParks = new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Parks_Search/FeatureServer/1", {
+         mode: FeatureLayer.MODE_ONDEMAND,
+         opacity: 0.6,
+         visible: FeatureLayer.isVisibleAtMapScale=true
+         
+        
+      });
+      
+      map.addLayer(featureLayerParks);
+      
+      var search = new Search({
+        sources: [{                                
+                       
+           featureLayer: new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Parks_Search/FeatureServer/1", { 
+             mode: FeatureLayer.MODE_ONDEMAND,           
+             outFields: ["*"],
+             zoomScale:18,  
+                                
+             infoTemplate: new InfoTemplate("Identify County Parks", 
+             "Park Name: ${Name}</br>ParK Ownership: ${ParkType}</br>"),
+                          
+           }),
+           outfields: ["Name"],
+           displayField:"Name",
+           name: "Parks",
+           placeholder: "Enter Park Name",
+           enableSuggestions: true,
+           enableHighlight:false,
+           
+           
+          
+           
+           simpleFill: new SimpleFillSymbol(SimpleFillSymbol.STYLE_Null, 
+             new SimpleLineSymbol (SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2), 
+             new Color([255,255,0,0,0.5]))  
+                    
+      }],
+        map: map
+      },  "search");
+
+      search.startup();      
+      });     
+              
+   </script>
+</head>
+
+<body>
+  <div id="search"></div>
+  <div id="map"></div>
+</body>
+
+</html> 
