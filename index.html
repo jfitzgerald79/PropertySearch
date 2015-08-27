@@ -45,16 +45,19 @@
       });
        var basemap = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
         map.addLayer(basemap);
+        
+        //var desirability = new ArcGISTiledMapServiceLayer("http://tiles.arcgis.com/tiles/HYLRafMc4Ux6DA8c/arcgis/rest/services/arcGIS_Online_Suitability_Data/MapServer");
+       // map.addLayer(desirability);
       
-       var desirability = new ArcGISTiledMapServiceLayer("http://tiles.arcgis.com/tiles/HYLRafMc4Ux6DA8c/arcgis/rest/services/arcGIS_Online_Suitability_Data/MapServer");
+       var desirability = new ArcGISTiledMapServiceLayer("http://tiles.arcgis.com/tiles/HYLRafMc4Ux6DA8c/arcgis/rest/services/Suitability_and_2014_Residential_Sales/MapServer/1");
         map.addLayer(desirability);
         
       
       
-      var featureLayerParks = new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Parks_Search/FeatureServer/1", {
-         mode: FeatureLayer.MODE_ONDEMAND,
-         opacity: 0.6,
-         visible: FeatureLayer.isVisibleAtMapScale=true
+      //var featureLayerParks = new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Parks_Search/FeatureServer/1", {
+       //  mode: FeatureLayer.MODE_ONDEMAND,
+        // opacity: 0.6,
+       //  visible: FeatureLayer.isVisibleAtMapScale=true
          
         
       });
@@ -64,28 +67,28 @@
       var search = new Search({
         sources: [{                                
                        
-           featureLayer: new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Parks_Search/FeatureServer/1", { 
+           featureLayer: new FeatureLayer("http://services.arcgis.com/HYLRafMc4Ux6DA8c/arcgis/rest/services/Feature_Service/FeatureServer/0", { 
              mode: FeatureLayer.MODE_ONDEMAND,           
              outFields: ["*"],
              zoomScale:18,  
                                 
-             infoTemplate: new InfoTemplate("Identify County Parks", 
-             "Park Name: ${Name}</br>ParK Ownership: ${ParkType}</br>"),
+             infoTemplate: new InfoTemplate("<b>Identify 2014 Residential Sales</b>", 
+             "Property Address: ${SITUS_ADDR}</br>Sale Price: ${SALE_PRICE}</br>Sale Date:${SALE_PRICE}</br>Acres:${ACRES}"),
                           
            }),
-           outfields: ["Name"],
-           displayField:"Name",
-           name: "Parks",
-           placeholder: "Enter Park Name",
+           outfields: ["SITUS_ADDR"],
+           displayField:"Address",
+           name: "Property Address",
+           placeholder: "Enter Property Addesss",
            enableSuggestions: true,
            enableHighlight:false,
            
            
           
            
-           simpleFill: new SimpleFillSymbol(SimpleFillSymbol.STYLE_Null, 
-             new SimpleLineSymbol (SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2), 
-             new Color([255,255,0,0,0.5]))  
+           //simpleFill: new SimpleFillSymbol(SimpleFillSymbol.STYLE_Null, 
+            // new SimpleLineSymbol (SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2), 
+            // new Color([255,255,0,0,0.5]))  
                     
       }],
         map: map
