@@ -72,7 +72,7 @@
              outFields: ["*"],
                               
              infoTemplate: new InfoTemplate("<b>Identify 2014 Residential Sales</b>", 
-             "Address: ${SITUS_ADDR}</br>Sale Price: ${SALE_PRICE}</br>Acres:${ACRES}</br>Website:<a target='_blank' href=http://www.cobbassessor.org/cobbga_dnn/>Tax</a></br>"),
+             "PIN: ${PIN}</br>Address: ${SITUS_ADDR}</br>Sale Price: ${SALE_PRICE}</br>Acres:${ACRES}</br>Website:<a target='_blank' href=http://www.cobbassessor.org/cobbga_dnn/>Tax</a></br>"),
                           
            }),
            outfields: ["SITUS_ADDR"],
@@ -94,7 +94,7 @@
                     
       }],
         map: map,
-        zoomScale:5000000
+        zoomScale:2000000
       },  "search");
 
       search.startup();      
