@@ -34,8 +34,8 @@
      
   <script>     
    require(["esri/map","esri/geometry/Extent", "esri/layers/ArcGISTiledMapServiceLayer", "esri/dijit/Search",  "esri/layers/FeatureLayer",  
-           "esri/InfoTemplate","esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color","dojo/domReady!"], 
-   function (Map, Extent, ArcGISTiledMapServiceLayer, Search,  FeatureLayer, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, Color) {
+           "esri/InfoTemplate","esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleMarkerSymbol", "esri/Color","dojo/domReady!"], 
+   function (Map, Extent, ArcGISTiledMapServiceLayer, Search,  FeatureLayer, InfoTemplate, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color) {
       
       var map = new Map("map", {
         extent: new Extent({xmin: -9464867.586310409, ymin: 3988479.973394642, xmax: -9359211.763174301, ymax: 4048458.624373842,spatialReference: {wkid: 102100},
@@ -84,7 +84,8 @@
            enableHighlight:false,
            
            
-          
+          simpleMarker: new SimpleMarkerSymbol(
+             SimpleMarkerSymbol.STYLE_CIRCLE, 8)
            
            //simpleFill: new SimpleFillSymbol(SimpleFillSymbol.STYLE_Null, 
             // new SimpleLineSymbol (SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2), 
